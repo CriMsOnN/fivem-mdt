@@ -13,7 +13,7 @@
         class="box-content h-52 w-5/6 rounded p-4 border-4 border-blue-500 shadow-2xl mt-5 bg-gray-800"
         :key="report.id"
       >
-        <div class="flex flex-row flex-wrap">
+        <div class="flex flex-row flex-wrap" @click="$router.push(`/search/${report.id}`)">
           <div class="flex flex-col max-w-sm justify-start align-start p-4">
             <label for="officer" class="flex justify-center align-center text-white 2xl:font-bold">Officer</label>
             <input type="text" id="officer" disabled class="p-4 rounded text-center text-black outline-none" :value="report.officer"/>
@@ -30,9 +30,13 @@
             <label for="time" class="flex justify-center align-center text-white 2xl:font-bold">Time</label>
             <input type="text" id="time" disabled class="p-4 rounded text-center text-black outline-none" :value="format(new Date(report.time), 'HH:mm:ss')"/>
           </div>
+          <div class="flex flex-col max-w-sm justify-start align-start p-4">
+            <label for="incident" class="flex justify-center align-center text-white 2xl:font-bold">Incident</label>
+            <input type="text" id="incident" disabled class="p-4 rounded text-center text-black outline-none" :value="report.incident"/>
+          </div>
           <div class="flex flex-col max-w-full justify-start align-start p-4">
-            <label for="incident" class="flex justify-center align-center text-white 2xl:font-bold">Time</label>
-            <textarea id="incident" class="w-80 h-14" :value="report.incident"/>
+            <label for="description" class="flex justify-center align-center text-white 2xl:font-bold">Description</label>
+            <textarea id="description" disabled class="w-60 h-14 rounded" :value="report.description"/>
           </div>
         </div>
       </div>
@@ -56,7 +60,7 @@ export default {
     const filterReports = computed(() => {
       console.log(fetchReports())
       return fetchReports().filter((e) => {
-        return reportValue.value.toLowerCase().includes(e.officer.toLowerCase());
+        return reportValue.value.toLowerCase().includes(e.reported.toLowerCase());
       })
     })
 
